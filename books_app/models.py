@@ -59,3 +59,23 @@ book_genre_table = db.Table('book_genre',
     db.Column('book_id', db.Integer, db.ForeignKey('book.id')),
     db.Column('genre_id', db.Integer, db.ForeignKey('genre.id'))
 )
+
+# for the mtm relationship bw User & Book
+favorite_book_table = db.Table('favorite_book',
+    db.Column('user_id', db.Integer, db.ForeignKey('user.id')),
+    db.Column('book_id', db.Integer, db.ForeignKey('book.id'))
+)
+
+class User(db.Model):
+    """User model."""
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(80), nullable=False, unique=True)
+    
+    # mtm relationship w Book
+    favorite_books = db.relationship('Book', secondary='favorite_book', backref='users_who_favorited')
+    
+    def __str__(self):
+        return f'<User: {self.username}>'
+    
+    def __repr__(self):
+        return f'<User: {self.username}>'
