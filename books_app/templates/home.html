@@ -2,8 +2,13 @@
 
 {% block content %}
 
-You are visiting the homepage.
+<h1>Welcome to the Book App</h1>
 
-<!-- TODO: Display a list of users here, with each linking to their profile -->
+<h2>Users:</h2>
+<ul>
+    {% for user in users %}
+        <li><a href="{{ url_for('main.profile', username=user.username) }}">{{ user.username }}</a></li>
+    {% endfor %}
+</ul>
 
 {% endblock %}

@@ -12,10 +12,13 @@ Welcome to {{ username }}'s profile.
     {{ username }}'s favorite books are:
 
     <ul>
-        <li>Your</li>
-        <li>Favorites</li>
-        <li>Go</li>
-        <li>Here</li>
+        {% if user.favorite_books %}
+            {% for book in user.favorite_books %}
+                <li>{{ book.title }} by {{ book.author.name }}</li>
+            {% endfor %}
+        {% else %}
+            <li>No favorite books yet!</li>
+        {% endif %}
     </ul>
 </p>
 
